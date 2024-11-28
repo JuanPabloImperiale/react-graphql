@@ -1,16 +1,63 @@
+/* eslint-disable react/prop-types */
+import { gql, useLazyQuery } from "@apollo/client";
+import { useState, useEffect } from "react";
+
+const FIND_PERSON = gql`
+  query findPersonByName($nameToSearch: String!) {
+    findPerson(name: $nameToSearch) {
+      name
+      phone
+      id
+      address {
+        street
+        city
+      }
+    }
+  }
+`;
+
 export const Persons = ({ persons }) => {
-  console.log("hola", persons);
+  const [getPerson, result] = useLazyQuery(FIND_PERSON);
+  const [person, setPerson] = useState(null);
+
+  const showPerson = (name) => {
+    console.log("llega", name)
+    getPerson({ variables: { nameToSearch: name } });
+  };
+
+  useEffect(() => {
+    console.log("render", result)
+    if (result.data) {
+      setPerson(result.data.findPerson);
+    }
+  }, [result]);
+
+  if(person) {
+    return(
+        <div>
+            <h2>{person.name}</h2>
+            <div>{person.address.street }, {person.address.city }</div>
+            <div>{person.phone }</div>
+            <button onClick={() => {setPerson(null)}}> CLOSE </button>
+        </div>
+    )
+  }
 
   if (persons === null) return null;
 
   return (
     <div>
       <h2>PERSONS from GraphQL</h2>
-      {persons.map( p => 
-        <div key={p.id}>
-          {p.name} {p.phone}
+      {persons.map((person) => (
+        <div
+          key={person.id}
+          onClick={() => {
+            showPerson(person.name);
+          }}
+        >
+          {person.name} {person.phone}
         </div>
-      )}
+      ))}
     </div>
   );
 };
