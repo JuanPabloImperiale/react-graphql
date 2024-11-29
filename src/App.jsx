@@ -2,8 +2,9 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import { gql, useQuery } from "@apollo/client";
 import {Persons} from "./Persons";
+import {PersonForm} from "./PersonForm"
 
-const ALL_PERSONS = gql`
+export const ALL_PERSONS = gql`
   query {
     allPersons {
       id
@@ -26,14 +27,17 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://react.dev" target="_blank">
+        <div>
           <img src={reactLogo} className="logo react" alt="React logo" />
           {loading ? (
             <p> Loading... </p>
           ) : (
+            <>
             <Persons persons={data.allPersons} />
+            <PersonForm />
+            </>
           )}
-        </a>
+        </div>
       </div>
     </>
   );

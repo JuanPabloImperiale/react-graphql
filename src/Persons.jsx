@@ -15,18 +15,29 @@ const FIND_PERSON = gql`
     }
   }
 `;
+// const EDIT_PHONE = gql`
+//   query editPhoneByName($nameToSearch: String!, $newPhone) {
+//     editNumber(name: $nameToSearch, phone: $newPhone) {
+//       name
+//       phone
+//       id
+//       address {
+//         street
+//         city
+//       }
+//     }
+//   }
+// `;
 
 export const Persons = ({ persons }) => {
   const [getPerson, result] = useLazyQuery(FIND_PERSON);
   const [person, setPerson] = useState(null);
 
   const showPerson = (name) => {
-    console.log("llega", name)
     getPerson({ variables: { nameToSearch: name } });
   };
 
   useEffect(() => {
-    console.log("render", result)
     if (result.data) {
       setPerson(result.data.findPerson);
     }
