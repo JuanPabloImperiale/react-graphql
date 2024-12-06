@@ -24,12 +24,12 @@ export const PersonForm = () => {
         <div>
             <h2>Create new Person</h2>
             <form onSubmit={handleSubmit}>
-                <input placeholder='Name' value={name} onChange={ evt => setName(evt.target.value )} />
-                <input placeholder='Phone' value={phone} onChange={ evt => setPhone(evt.target.value )} />
-                <input placeholder='Street' value={street} onChange={ evt => setStreet(evt.target.value )} />
-                <input placeholder='City' value={city} onChange={ evt => setCity(evt.target.value )} />
+                <input placeholder='Name' value={name} onChange={ evt => setName(evt.target.value )} style={{width:"50%", padding:"10px", marginBottom:"10px"}} />
+                <input placeholder='Phone' value={phone} onChange={ evt => setPhone(evt.target.value )} style={{width:"50%",padding:"10px", marginBottom:"10px"}} />
+                <input placeholder='Street' value={street} onChange={ evt => setStreet(evt.target.value )} style={{width:"50%",padding:"10px", marginBottom:"10px"}} />
+                <input placeholder='City' value={city} onChange={ evt => setCity(evt.target.value )} style={{width:"50%",padding:"10px", marginBottom:"10px"}} />
 
-                <button>Add Person</button>
+                <button style={{width:"50%"}}>Add Person</button>
             </form>
 
         </div>
